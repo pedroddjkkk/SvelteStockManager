@@ -14,7 +14,7 @@ export const handle = SvelteKitAuth({
 				if (credentials.username === 'admin' && credentials.password === 'admin') {
 					return {
 						id: 'admin',
-            username: 'admin',
+            name: 'admin',
             roles: ['admin']
 					};
 				}

@@ -1,8 +1,6 @@
 <script>
 	import { page } from '$app/stores';
 	import { signOut } from '@auth/sveltekit/client';
-
-	$: console.log($page);
 </script>
 
 {#if $page.data.session}

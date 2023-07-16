@@ -1,5 +1,6 @@
 import { SvelteKitAuth } from '@auth/sveltekit';
 import Credentials from '@auth/core/providers/credentials';
+import prisma from '$lib/prisma';
 
 export const handle = SvelteKitAuth({
 	providers: [
@@ -7,20 +8,26 @@ export const handle = SvelteKitAuth({
 			id: 'credentials',
 			name: 'Credentials',
 			credentials: {
-				username: { label: 'Username', type: 'text' },
+				name: { label: 'Username', type: 'text' },
 				password: { label: 'Password', type: 'password' }
 			},
 			async authorize(credentials) {
-				if (credentials.username === 'admin' && credentials.password === 'admin') {
-					return {
-						id: 'admin',
-            name: 'admin',
-            roles: ['admin']
-					};
+				if (credentials.name) {
+					const user = await prisma.user.findFirst({
+						where: {
+							name: credentials.name
+						}
+					});
+
+					if (user && user.password === credentials.password) {
+						return {
+							id: user.id.toString(),
+							name: user.name as string
+						};
+					}
 				}
 				return null;
 			}
 		})
-	],
-
+	]
 });

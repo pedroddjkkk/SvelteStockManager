@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { Label, Input, Heading, P, Button } from 'flowbite-svelte';
+	import { Input, Heading, P, Button } from 'flowbite-svelte';
 	import { signIn } from '@auth/sveltekit/client';
 	import { goto } from '$app/navigation';
 
-	let username = '';
+	let name = '';
 	let password = '';
 	let error = false;
 
 	async function onSubmit(e: Event) {
 		e.preventDefault();
 
-		const login = await signIn('credentials', { username, password, redirect: false });
+		const login = await signIn('credentials', { name, password, redirect: false });
 
 		if (login) {
 			const body = await login.json();
@@ -43,7 +43,7 @@
 				id="username"
 				placeholder="Username"
 				size="lg"
-				bind:value={username}
+				bind:value={name}
 			/>
 		</div>
 		<div class="mb-6">

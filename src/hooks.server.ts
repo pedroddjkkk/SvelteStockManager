@@ -21,5 +21,6 @@ export const handle = SvelteKitAuth({
 				return null;
 			}
 		})
-	]
+	],
+
 });

@@ -8,14 +8,14 @@ export const handle = SvelteKitAuth({
 			id: 'credentials',
 			name: 'Credentials',
 			credentials: {
-				name: { label: 'Username', type: 'text' },
+				email: { label: 'Email', type: 'text' },
 				password: { label: 'Password', type: 'password' }
 			},
 			async authorize(credentials) {
-				if (credentials.name) {
+				if (credentials.email) {
 					const user = await prisma.user.findFirst({
 						where: {
-							name: credentials.name
+							email: credentials.email
 						}
 					});
 

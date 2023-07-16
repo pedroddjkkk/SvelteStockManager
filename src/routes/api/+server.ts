@@ -5,9 +5,9 @@ import { SECRET_CREATE_TOKEN } from '$env/static/private';
 
 export const POST = (async ({ request }) => {
 	const body = await request.json();
-  
+
 	if (body.token == SECRET_CREATE_TOKEN) {
-		const user = prisma.user.create({
+		const user = await prisma.user.create({
 			data: {
 				email: body.email,
 				name: body.name,

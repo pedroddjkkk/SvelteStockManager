@@ -3,14 +3,14 @@
 	import { signIn } from '@auth/sveltekit/client';
 	import { goto } from '$app/navigation';
 
-	let name = '';
+	let email = '';
 	let password = '';
 	let error = false;
 
 	async function onSubmit(e: Event) {
 		e.preventDefault();
 
-		const login = await signIn('credentials', { name, password, redirect: false });
+		const login = await signIn('credentials', { email, password, redirect: false });
 
 		if (login) {
 			const body = await login.json();
@@ -39,11 +39,11 @@
 		<div class="mb-4">
 			<Input
 				type="text"
-				name="username"
-				id="username"
-				placeholder="Username"
+				name="email"
+				id="email"
+				placeholder="Email"
 				size="lg"
-				bind:value={name}
+				bind:value={email}
 			/>
 		</div>
 		<div class="mb-6">
@@ -59,7 +59,7 @@
 		<Button type="submit" size="md">Login</Button>
 		{#if error}
 			<div class="mt-2">
-				<P class="text-red-500">Invalid username or password</P>
+				<P class="text-red-500">Invalid email or password</P>
 			</div>
 		{/if}
 		<div class="mb-6" />

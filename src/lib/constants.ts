@@ -7,7 +7,7 @@ export const pages : Pages = [{
   path: "/",
   icon: FaTachometerAlt,
 }, {
-  name: "Movimentations",
-  path: "/movimentations",
+  name: "Movements",
+  path: "/movements",
   icon: FaTruckMoving,
 }]

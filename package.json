@@ -38,6 +38,7 @@
 		"@auth/sveltekit": "^0.3.5",
 		"@floating-ui/dom": "^1.4.5",
 		"@prisma/client": "^4.14.1",
+		"clsx": "^2.0.0",
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.39.3",
 		"svelte-icons": "^2.1.0",

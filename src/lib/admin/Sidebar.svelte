@@ -19,7 +19,7 @@
 					href={pageItem.path}
 				>
 					<div
-						class={` w-6 h-6 mr-4 flex items-center ${
+						class={`w-6 h-6 mr-4 flex items-center ${
 							$page.url.pathname === pageItem.path ? 'text-[#fc886a]' : 'text-gray-200'
 						}`}
 					>

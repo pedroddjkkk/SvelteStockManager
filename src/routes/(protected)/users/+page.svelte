@@ -26,19 +26,22 @@
 		},
 		{
 			field: 'role',
-			headerName: 'Role'
+			headerName: 'Role',
+			valueFormatter(value) {
+				return value.toLocaleLowerCase();
+			}
 		},
 		{
 			field: 'createdAt',
 			headerName: 'Created At',
-      valueFormatter: (value: string) => {
-        return new Date(value).toLocaleDateString();
-      }
+			valueFormatter(value: string){
+				return new Date(value).toLocaleDateString();
+			}
 		}
 	];
 </script>
 
 <div class="h-8" />
 <Paper className="mx-auto border-none rounded-xl p-4 w-[90%]">
-	<DataGrid {columns} rows={data.users} />
+	<DataGrid {columns} rows={data.users} selectable/>
 </Paper>

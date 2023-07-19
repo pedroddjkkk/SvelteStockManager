@@ -10,33 +10,35 @@
 	} from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import Paper from '$lib/shared/Paper.svelte';
+	import type { GridColDef } from '$lib/types';
+	import DataGrid from '$lib/shared/DataGrid.svelte';
 
 	export let data: PageData;
-</script>
-<div class="h-8">
 
-</div>
+	const columns: GridColDef[] = [
+		{
+			field: 'name',
+			headerName: 'User Name'
+		},
+		{
+			field: 'email',
+			headerName: 'Email'
+		},
+		{
+			field: 'role',
+			headerName: 'Role'
+		},
+		{
+			field: 'createdAt',
+			headerName: 'Created At',
+      valueFormatter: (value: string) => {
+        return new Date(value).toLocaleDateString();
+      }
+		}
+	];
+</script>
+
+<div class="h-8" />
 <Paper className="mx-auto border-none rounded-xl p-4 w-[90%]">
-		<Table divClass="rounded-full">
-			<TableHead>
-				<TableHeadCell>User Name</TableHeadCell>
-				<TableHeadCell>Email</TableHeadCell>
-				<TableHeadCell>Role</TableHeadCell>
-				<TableHeadCell>Created At</TableHeadCell>
-			</TableHead>
-			<TableBody class="divide-y">
-				{#each data?.users as user}
-					<TableBodyRow>
-						<TableBodyCell>{user.name}</TableBodyCell>
-						<TableBodyCell>{user.email}</TableBodyCell>
-						<TableBodyCell>{user.role.toLocaleLowerCase()}</TableBodyCell>
-						<TableBodyCell>{user.createdAt.toDateString()}</TableBodyCell>
-					</TableBodyRow>
-				{:else}
-					<TableBodyRow>
-						<TableBodyCell colspan="4">No users found</TableBodyCell>
-					</TableBodyRow>
-				{/each}
-			</TableBody>
-		</Table>
+	<DataGrid {columns} rows={data.users} />
 </Paper>

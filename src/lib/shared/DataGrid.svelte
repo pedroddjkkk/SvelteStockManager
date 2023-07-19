@@ -21,13 +21,15 @@
 	</TableHead>
 	<TableBody>
 		{#each rows as row}
-			{#each columns as column}
-				{#if column.valueFormatter}
-					<TableBodyCell>{column.valueFormatter(row[column.field])}</TableBodyCell>
-				{:else}
-					<TableBodyCell>{row[column.field]}</TableBodyCell>
-				{/if}
-			{/each}
+			<TableBodyRow>
+				{#each columns as column}
+					{#if column.valueFormatter}
+						<TableBodyCell>{column.valueFormatter(row[column.field])}</TableBodyCell>
+					{:else}
+						<TableBodyCell>{row[column.field]}</TableBodyCell>
+					{/if}
+				{/each}
+			</TableBodyRow>
 		{:else}
 			<TableBodyRow>
 				<TableBodyCell colspan="4">No users found</TableBodyCell>

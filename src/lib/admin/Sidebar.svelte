@@ -18,7 +18,7 @@
 				>
 					<div
 						class={`text-gray-200 w-6 h-6 mr-4 flex items-center ${
-							$page.url.pathname === pageItem.path && 'text-[#eb603d]'
+							$page.url.pathname === pageItem.path && 'text-[#fc886a]'
 						}`}
 					>
 						<svelte:component this={pageItem.icon} />

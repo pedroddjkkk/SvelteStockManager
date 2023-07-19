@@ -1,17 +1,14 @@
 <script lang="ts">
-	import { Card } from 'flowbite-svelte';
-	import {
-		Table,
-		TableBody,
-		TableBodyCell,
-		TableBodyRow,
-		TableHead,
-		TableHeadCell
-	} from 'flowbite-svelte';
 	import type { PageData } from './$types';
-	import Paper from '$lib/shared/Paper.svelte';
 	import type { GridColDef } from '$lib/types';
+	import type { Prisma } from '@prisma/client';
+
+	import Paper from '$lib/shared/Paper.svelte';
 	import DataGrid from '$lib/shared/DataGrid.svelte';
+	import { ButtonGroup, Button } from 'flowbite-svelte';
+
+	import GoTrashcan from 'svelte-icons/go/GoTrashcan.svelte';
+	import GoPencil from 'svelte-icons/go/GoPencil.svelte';
 
 	export let data: PageData;
 
@@ -40,7 +37,7 @@
 		}
 	];
 
-	let selectedRows = [];
+	let selectedRows: { row: Prisma.UserGetPayload<{}>; checked: boolean }[];
 </script>
 
 {@debug selectedRows}
@@ -52,5 +49,34 @@
 		rows={data.users}
 		selectable
 		on:select={(values) => (selectedRows = values.detail)}
-	/>
+	>
+		<div slot="footer" class="w-full flex font-light justify-between items-center text-sm">
+			{#if selectedRows && selectedRows.length > 0}
+				<ButtonGroup>
+					<form action="" method="post">
+						<Button
+							><div class="w-6 h-6 mr-1"><GoTrashcan /></div>
+							Remove</Button
+						>
+					</form>
+					<Button
+						><div class="w-6 h-6 mr-1"><GoPencil /></div>
+						Update</Button
+					>
+				</ButtonGroup>
+			{:else}
+				<div />
+			{/if}
+			<div>
+				{#if selectedRows && selectedRows.length == 1}
+					<p>{selectedRows.length} row selected</p>
+				{:else if selectedRows && selectedRows.length > 1}
+					<p>{selectedRows.length} rows selected</p>
+				{:else}
+					<div />
+					<p>No rows selected</p>
+				{/if}
+			</div>
+		</div>
+	</DataGrid>
 </Paper>

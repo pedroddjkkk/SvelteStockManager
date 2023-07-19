@@ -9,7 +9,7 @@
 		TableHeadCell,
 		Checkbox
 	} from 'flowbite-svelte';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -17,29 +17,28 @@
 	export let rows: any[];
 	export let selectable: boolean = false;
 
+	let checked = false;
 	let checkboxes = rows.map((row) => {
-		return { row, value: false };
-	});;
-
-	function onCheckboxSelect() {
-		dispatch('select', checkboxes.filter((item) => item.value == true));
-	}
+		return { row, checked: false };
+	});
 
 	function onHeaderCheckboxClick() {
 		checkboxes = checkboxes.map((item) => {
-			return { ...item, value: checked };
+			return { ...item, checked: checked };
 		});
-    dispatch('select', checkboxes.filter((item) => item.value == true));
 	}
 
-	let checked = false;
+	$: dispatch(
+		'select',
+		checkboxes.filter((item) => item.checked == true)
+	);
 </script>
 
 <Table>
 	<TableHead>
 		{#if selectable}
 			<TableHeadCell class="!p-4">
-				<Checkbox on:change={onHeaderCheckboxClick} bind:checked={checked}/>
+				<Checkbox on:change={onHeaderCheckboxClick} bind:checked />
 			</TableHeadCell>
 		{/if}
 		{#each columns as column}
@@ -51,7 +50,7 @@
 			<TableBodyRow>
 				{#if selectable}
 					<TableBodyCell class="!p-4">
-						<Checkbox bind:checked={checkboxes[index].value} on:change={onCheckboxSelect}/>
+						<Checkbox bind:checked={checkboxes[index].checked} />
 					</TableBodyCell>
 				{/if}
 				{#each columns as column}
@@ -69,3 +68,4 @@
 		{/each}
 	</TableBody>
 </Table>
+<slot name="footer" />

@@ -5,6 +5,8 @@
 	export let pages: Pages;
 </script>
 
+{@debug $page}
+
 <nav class="w-[270px] h-screen fixed from-sky-700 to-sky-800 bg-gradient-to-b">
 	<section class="after:bg-gray-500 after:w-full after:h-px after:block mt-48" />
 
@@ -17,8 +19,8 @@
 					href={pageItem.path}
 				>
 					<div
-						class={`text-gray-200 w-6 h-6 mr-4 flex items-center ${
-							$page.url.pathname === pageItem.path && 'text-[#fc886a]'
+						class={` w-6 h-6 mr-4 flex items-center ${
+							$page.url.pathname === pageItem.path ? 'text-[#fc886a]' : 'text-gray-200'
 						}`}
 					>
 						<svelte:component this={pageItem.icon} />

@@ -34,14 +34,23 @@
 		{
 			field: 'createdAt',
 			headerName: 'Created At',
-			valueFormatter(value: string){
+			valueFormatter(value) {
 				return new Date(value).toLocaleDateString();
 			}
 		}
 	];
+
+	let selectedRows = [];
 </script>
+
+{@debug selectedRows}
 
 <div class="h-8" />
 <Paper className="mx-auto border-none rounded-xl p-4 w-[90%]">
-	<DataGrid {columns} rows={data.users} selectable/>
+	<DataGrid
+		{columns}
+		rows={data.users}
+		selectable
+		on:select={(values) => (selectedRows = values.detail)}
+	/>
 </Paper>

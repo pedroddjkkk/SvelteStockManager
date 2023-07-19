@@ -7,9 +7,7 @@
 	let password = '';
 	let error = false;
 
-	async function onSubmit(e: Event) {
-		e.preventDefault();
-
+	async function onSubmit() {
 		const login = await signIn('credentials', { email, password, redirect: false });
 
 		if (login) {
@@ -32,7 +30,7 @@
 	<form
 		action=""
 		class="flex flex-col max-w-[400px] w-[90%] bg-white rounded-lg p-8 shadow-xl"
-		on:submit={(e) => onSubmit(e)}
+		on:submit|preventDefault={onSubmit}
 	>
 		<Heading tag="h2" class="mb-4 text-black font-normal">Welcome!</Heading>
 		<P class="mb-8 text-black">Please login to continue.</P>

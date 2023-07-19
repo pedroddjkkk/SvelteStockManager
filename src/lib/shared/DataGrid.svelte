@@ -9,17 +9,37 @@
 		TableHeadCell,
 		Checkbox
 	} from 'flowbite-svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	export let columns: GridColDef[];
 	export let rows: any[];
 	export let selectable: boolean = false;
+
+	let checkboxes = rows.map((row) => {
+		return { row, value: false };
+	});;
+
+	function onCheckboxSelect() {
+		dispatch('select', checkboxes.filter((item) => item.value == true));
+	}
+
+	function onHeaderCheckboxClick() {
+		checkboxes = checkboxes.map((item) => {
+			return { ...item, value: checked };
+		});
+    dispatch('select', checkboxes.filter((item) => item.value == true));
+	}
+
+	let checked = false;
 </script>
 
-<Table divClass="rounded-full">
+<Table>
 	<TableHead>
 		{#if selectable}
 			<TableHeadCell class="!p-4">
-				<Checkbox />
+				<Checkbox on:change={onHeaderCheckboxClick} bind:checked={checked}/>
 			</TableHeadCell>
 		{/if}
 		{#each columns as column}
@@ -27,11 +47,11 @@
 		{/each}
 	</TableHead>
 	<TableBody>
-		{#each rows as row}
+		{#each rows as row, index}
 			<TableBodyRow>
 				{#if selectable}
 					<TableBodyCell class="!p-4">
-						<Checkbox />
+						<Checkbox bind:checked={checkboxes[index].value} on:change={onCheckboxSelect}/>
 					</TableBodyCell>
 				{/if}
 				{#each columns as column}

@@ -20,14 +20,22 @@ export const handle = SvelteKitAuth({
 					});
 
 					if (user && user.password === credentials.password) {
+						const { password, ...userWithoutPass } = user;
 						return {
-							id: user.id.toString(),
-							name: user.name as string
+							...userWithoutPass,
+							id: user.id.toString()
 						};
 					}
 				}
 				return null;
 			}
 		})
-	]
+	],
+	callbacks: {
+		jwt({ token }) {
+			return {
+				...token
+			};
+		}
+	}
 });

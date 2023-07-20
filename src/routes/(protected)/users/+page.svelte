@@ -38,9 +38,12 @@
 	];
 
 	let selectedRows: { row: Prisma.UserGetPayload<{}>; checked: boolean }[];
-</script>
 
-{@debug selectedRows}
+	function handleRemove() {
+		const url = '/api/user/' + selectedRows.map((row) => row.row.id).join('/');
+		fetch(url, { method: 'DELETE' });
+	}
+</script>
 
 <div class="h-8" />
 <Paper className="mx-auto border-none rounded-xl p-4 w-[90%]">
@@ -53,16 +56,16 @@
 		<div slot="footer" class="w-full flex font-light justify-between items-center text-sm">
 			{#if selectedRows && selectedRows.length > 0}
 				<ButtonGroup>
-					<form action="" method="post">
-						<Button
-							><div class="w-6 h-6 mr-1"><GoTrashcan /></div>
-							Remove</Button
-						>
-					</form>
-					<Button
-						><div class="w-6 h-6 mr-1"><GoPencil /></div>
-						Update</Button
+					<Button on:click={handleRemove}
+						><div class="w-6 h-6 mr-1"><GoTrashcan /></div>
+						Remove</Button
 					>
+					{#if selectedRows.length == 1}
+						<Button
+							><div class="w-6 h-6 mr-1"><GoPencil /></div>
+							Update</Button
+						>
+					{/if}
 				</ButtonGroup>
 			{:else}
 				<div />

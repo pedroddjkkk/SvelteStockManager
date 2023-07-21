@@ -38,12 +38,16 @@
 	];
 
 	let selectedRows: { row: Prisma.UserGetPayload<{}>; checked: boolean }[];
+	let reset = false;
 
 	async function handleRemove() {
 		const url = '/api/user/' + selectedRows.map((row) => row.row.id).join('/');
 		const res = await fetch(url, { method: 'DELETE' });
-    data.users = await res.json();
+		data.users = await res.json();
+		reset = true;
 	}
+
+	$: selectedRows && (reset = false);
 </script>
 
 <div class="h-8" />
@@ -52,6 +56,7 @@
 		{columns}
 		rows={data.users}
 		selectable
+		{reset}
 		on:select={(values) => (selectedRows = values.detail)}
 	>
 		<div slot="footer" class="w-full flex font-light justify-between items-center text-sm">

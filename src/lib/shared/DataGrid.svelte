@@ -16,9 +16,10 @@
 	export let columns: GridColDef[];
 	export let rows: any[];
 	export let selectable: boolean = false;
+  export let reset: boolean = false;
 
 	let checked = false;
-	let checkboxes = resetCheckboxes();
+	let checkboxes = resetCheckboxes(rows);
 
 	function onHeaderCheckboxClick() {
 		checkboxes = checkboxes.map((item) => {
@@ -26,16 +27,9 @@
 		});
 	}
 
-	function resetCheckboxes() {
+	function resetCheckboxes(rows: any[]) {
+    reset = false;
 		return rows.map((row) => {
-			return { row, checked: false };
-		});
-	}
-
-	function onDataChange(data: any[]) {
-		console.log('caiuuuuuuuuuu');
-
-		checkboxes = data.map((row) => {
 			return { row, checked: false };
 		});
 	}
@@ -45,7 +39,7 @@
 		checkboxes.filter((item) => item.checked == true)
 	);
 
-	$: rows && onDataChange(rows);
+  $: reset && (checkboxes = resetCheckboxes(rows));
 </script>
 
 <Table>

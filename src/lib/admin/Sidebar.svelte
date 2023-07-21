@@ -6,7 +6,7 @@
 </script>
 
 <nav class="w-[270px] h-screen fixed from-sky-700 to-sky-800 bg-gradient-to-b">
-	<section class="after:bg-gray-500 after:w-full after:h-px after:block mt-48" />
+	<section class="after:bg-gray-500 after:w-full after:h-px after:block mt-36" />
 
 	<section>
 		<ul class="flex justify-center items-center flex-col mt-4">

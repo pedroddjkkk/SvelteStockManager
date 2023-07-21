@@ -18,9 +18,7 @@
 	export let selectable: boolean = false;
 
 	let checked = false;
-	let checkboxes = rows.map((row) => {
-		return { row, checked: false };
-	});
+	let checkboxes = resetCheckboxes();
 
 	function onHeaderCheckboxClick() {
 		checkboxes = checkboxes.map((item) => {
@@ -28,10 +26,26 @@
 		});
 	}
 
+	function resetCheckboxes() {
+		return rows.map((row) => {
+			return { row, checked: false };
+		});
+	}
+
+	function onDataChange(data: any[]) {
+		console.log('caiuuuuuuuuuu');
+
+		checkboxes = data.map((row) => {
+			return { row, checked: false };
+		});
+	}
+
 	$: dispatch(
 		'select',
 		checkboxes.filter((item) => item.checked == true)
 	);
+
+	$: rows && onDataChange(rows);
 </script>
 
 <Table>

@@ -39,9 +39,10 @@
 
 	let selectedRows: { row: Prisma.UserGetPayload<{}>; checked: boolean }[];
 
-	function handleRemove() {
+	async function handleRemove() {
 		const url = '/api/user/' + selectedRows.map((row) => row.row.id).join('/');
-		fetch(url, { method: 'DELETE' });
+		const res = await fetch(url, { method: 'DELETE' });
+    data.users = await res.json();
 	}
 </script>
 

@@ -10,7 +10,7 @@ export const DELETE = (async ({ cookies, params }) => {
 
 	const ids = params.id.split('/').map((id) => parseInt(id));
 
-	const deletedUsers = await prisma.user.deleteMany({
+	await prisma.user.deleteMany({
 		where: {
 			id: {
 				in: ids
@@ -18,6 +18,6 @@ export const DELETE = (async ({ cookies, params }) => {
 		}
 	});
 
-	return json(deletedUsers);
+	return json(await prisma.user.findMany());
 
 }) satisfies RequestHandler;

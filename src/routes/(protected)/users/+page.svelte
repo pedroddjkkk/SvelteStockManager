@@ -13,6 +13,7 @@
 	export let data: PageData;
 
 	const columns: GridColDef[] = [
+		{ field: 'id', headerName: 'ID' },
 		{
 			field: 'name',
 			headerName: 'User Name'
@@ -37,11 +38,11 @@
 		}
 	];
 
-	let selectedRows: { row: Prisma.UserGetPayload<{}>; checked: boolean }[];
+	let selectedRows: { row: (typeof data.users)[number]; checked: boolean }[];
 	let reset = false;
 
 	async function handleRemove() {
-		const url = '/api/user/' + selectedRows.map((row) => row.row.id).join('/');
+		const url = '/api/user/' + selectedRows.map((item) => item.row.id).join('/');
 		const res = await fetch(url, { method: 'DELETE' });
 		data.users = await res.json();
 		reset = true;

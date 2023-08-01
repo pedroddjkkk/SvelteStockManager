@@ -41,6 +41,7 @@
 		"clsx": "^2.0.0",
 		"flowbite": "^1.7.0",
 		"flowbite-svelte": "^0.39.3",
+		"prisma-zod-generator": "^0.8.13",
 		"svelte-icons": "^2.1.0",
 		"tailwind-merge": "^1.14.0"
 	}
